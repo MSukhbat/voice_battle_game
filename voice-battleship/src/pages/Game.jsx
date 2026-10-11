@@ -254,7 +254,7 @@ function Game() {
   }
   function handleEnemyCellSelect(row, col, coordinate) {
     if (game?.status !== "playing") return;
-    if (game.turn !== `player${player}`) return;
+    // if (game.turn !== `player${player}`) return;
 
     const shots =
       player === "1" ? game.player1Shots || {} : game.player2Shots || {};
@@ -276,28 +276,12 @@ function Game() {
   // -------------------------
   // SHOOT ENEMY
   // -------------------------
-  function handleEnemyCellSelect(row, col, coordinate) {
-    if (game?.status !== "playing") return;
-    if (game.turn !== `player${player}`) return;
 
-    const shots =
-      player === "1" ? game.player1Shots || {} : game.player2Shots || {};
-
-    if (shots[coordinate]) return;
-
-    setSelectedCells((current) => {
-      const next = { ...current };
-
-      if (next[coordinate]) {
-        delete next[coordinate];
-      } else {
-        next[coordinate] = true;
-      }
-
-      return next;
-    });
-  }
   async function handleEnemyCell(row, col, coordinate) {
+    if (!game) return;
+
+    // Үлдсэн код...
+
     if (!game) {
       return;
     }
@@ -500,12 +484,12 @@ function Game() {
     <div className="game">
       {/* TITLE */}
 
-      <h1>✈️ Voice Airplane Battle</h1>
+      <h1>✈️ Дуу хоолойгоор удирдах онгоц буудах тоглоом</h1>
 
       {/* ROOM */}
 
       <div className="room">
-        Room:
+        Өрөөний дугаар
         <strong>{roomId}</strong>
       </div>
 
@@ -513,14 +497,16 @@ function Game() {
 
       <div className="players">
         <div>
-          Player 1:
+          1-р тоглогч:
           <strong>{game.player1}</strong>
           {game.player1Ready ? " ✅" : " ⏳"}
         </div>
 
         <div>
-          Player 2:
-          <strong>{game.player2 || "Waiting..."}</strong>
+          2-р тоглогч:
+          <strong>
+            {game.player2 || "Хоёр дахь тоглогчийг хүлээж байна..."}
+          </strong>
           {game.player2Ready ? " ✅" : " ⏳"}
         </div>
       </div>
@@ -529,7 +515,7 @@ function Game() {
 
       <h2>
         {game.status === "waiting"
-          ? "⏳ Waiting for both players..."
+          ? "⏳ Хоёр тоглогчийг хүлээж байна..."
           : game.status === "finished"
             ? "🏁 Game Finished"
             : myTurn
@@ -543,9 +529,9 @@ function Game() {
         <section className="fleet-selector">
           <div className="fleet-heading">
             <div>
-              <p className="fleet-eyebrow">AIRSPACE / LOADOUT SYSTEM</p>
-              <h2>SELECT YOUR FLEET</h2>
-              <p>Choose 3 aircraft for your mission.</p>
+              <p className="fleet-eyebrow">AIRSPACE / ОНГОЦНЫ ТОХИРГОО</p>
+              <h2>ФЛОТОО БҮРДҮҮЛ</h2>
+              <p>Тулаанд ашиглах 3 онгоцоо сонго.</p>
             </div>
 
             <div className="fleet-count">
@@ -589,7 +575,7 @@ function Game() {
 
           <p className="fleet-hint">
             {selectedTypes.length === 3
-              ? "Fleet ready. Randomize your positions or confirm READY."
+              ? "Флот бэлэн. Онгоцнуудын байрлалыг санамсаргүйгээр өөрчлөх эсвэл бэлэн гэдгээ баталгаажуул."
               : `Select ${3 - selectedTypes.length} more aircraft.`}
           </p>
         </section>
@@ -600,7 +586,7 @@ function Game() {
       <div className="boards">
         {/* MY BOARD */}
         <div>
-          <h2>My Board</h2>
+          <h2>МИНИЙ ТАЛБАР</h2>
 
           <Board
             airplanes={myAirplanes}
@@ -611,7 +597,7 @@ function Game() {
 
         {/* ENEMY BOARD */}
         <div>
-          <h2>Enemy Board</h2>
+          <h2>ДАЙСНЫ ТАЛБАР</h2>
 
           <Board
             airplanes={[]}
@@ -649,9 +635,9 @@ function Game() {
 
       {game.status !== "finished" && !isReady && (
         <div className="controls">
-          <button onClick={randomizeAirplanes}>🔄 Randomize</button>
+          <button onClick={randomizeAirplanes}>🔄 Байрлал шинэчлэх</button>
 
-          <button onClick={readyGame}>READY</button>
+          <button onClick={readyGame}>БЭЛЭН</button>
         </div>
       )}
       <VoiceShootButton

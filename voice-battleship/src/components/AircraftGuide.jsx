@@ -51,11 +51,11 @@ function AircraftGuide() {
   return (
     <section className="aircraft-guide" id="aircraft-guide">
       <div className="guide-heading">
-        <p className="guide-eyebrow">AIRSPACE / DATABASE</p>
-        <h2>AIRCRAFT FIELD GUIDE</h2>
+        <p className="guide-eyebrow">AIRSPACE · ТАКТИКИЙН ӨГӨГДЛИЙН САН</p>
+        <h2>ОНГОЦНЫ ЛАВЛАХ</h2>
         <p>
-          Learn your fleet. Every aircraft has a unique shape and special
-          ability.
+          Онгоц бүр өөрийн гэсэн хэлбэр, онцгой чадвартай. Флоттойгоо танилцаж,
+          тулааны тактикаа төлөвлө.
         </p>
       </div>
 
@@ -79,8 +79,8 @@ function AircraftGuide() {
 
             <div className="ability-status">
               <span className="ability-status-dot" />
-              SPECIAL ABILITY
-              <span className="ability-development">IN DEVELOPMENT</span>
+              Тусгай чадвар
+              <span className="ability-development">Хөгжүүлэгдэж байна</span>
             </div>
 
             <div className="guide-legend">
