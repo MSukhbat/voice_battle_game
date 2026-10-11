@@ -1,0 +1,209 @@
+.aircraft-guide {
+  width: min(1100px, calc(100% - 32px));
+  margin: 70px auto;
+  color: #f1f5fb;
+}
+
+.guide-heading {
+  margin-bottom: 28px;
+}
+
+.guide-eyebrow {
+  color: #a8f36b;
+  font-size: 11px;
+  letter-spacing: 3px;
+  font-weight: 800;
+}
+
+.guide-heading h2 {
+  margin: 8px 0;
+  font-size: clamp(25px, 4vw, 38px);
+  letter-spacing: 2px;
+}
+
+.guide-heading > p:last-child {
+  color: #8fa0b6;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.guide-card {
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid #28384c;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #111d2d, #090f1a);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease;
+}
+
+.guide-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--aircraft-color);
+}
+
+.guide-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.guide-label {
+  color: #8fa0b6;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+}
+
+.guide-status {
+  color: var(--aircraft-color);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.guide-shape {
+  height: 145px;
+  margin: 15px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 9px;
+  background-color: #080e18;
+  background-image:
+    linear-gradient(#233247 1px, transparent 1px),
+    linear-gradient(90deg, #233247 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.aircraft-shape {
+  display: block;
+  width: 100%;
+  max-width: 210px;
+  max-height: 125px;
+  overflow: visible;
+  color: var(--aircraft-color);
+}
+
+.guide-card h3 {
+  margin: 10px 0 5px;
+  color: var(--aircraft-color);
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+.guide-ability {
+  color: #9aaac0;
+  font-size: 11px;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.guide-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 13px;
+  border-top: 1px solid #253246;
+}
+
+.guide-legend span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #aab7c8;
+  font-size: 10px;
+}
+
+.guide-legend i {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--aircraft-color);
+}
+
+.guide-legend .legend-head {
+  opacity: 1;
+}
+
+.guide-legend .legend-wing {
+  opacity: 0.75;
+}
+
+.guide-legend .legend-tail {
+  opacity: 0.45;
+}
+
+.guide-note {
+  margin-top: 20px;
+  color: #7789a0;
+  font-size: 11px;
+  line-height: 1.7;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 750px) {
+  .guide-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .guide-card {
+    padding: 13px;
+  }
+
+  .guide-shape {
+    height: 125px;
+  }
+
+  .guide-legend {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 420px) {
+  .guide-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .guide-card {
+    padding: 18px;
+  }
+}
+
+.ability-status {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #253246;
+  color: #8fa0b6;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.ability-status-dot {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  border-radius: 50%;
+  background: #ffb454;
+  box-shadow: 0 0 8px #ffb45466;
+}
+
+.ability-development {
+  margin-left: auto;
+  color: #ffb454;
+  font-size: 9px;
+}

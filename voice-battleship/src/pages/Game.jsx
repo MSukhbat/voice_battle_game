@@ -1,260 +1,12 @@
-// import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
-// import { doc, onSnapshot, updateDoc } from "firebase/firestore";
-
-// import { db } from "../firebase/firebase";
-
-// import Board from "../components/Board";
-
-// import { generateAirplanes } from "../utils/airplane";
-
-// function Game() {
-//   const [game, setGame] = useState(null);
-//   const [myAirplanes, setMyAirplanes] = useState([]);
-
-//   const params = new URLSearchParams(window.location.search);
-
-//   const player = params.get("player");
-
-//   const roomId = window.location.pathname.split("/").pop();
-
-//   const gameRef = doc(db, "games", roomId);
-
-//   // Firebase realtime listener
-
-//   useEffect(() => {
-//     const unsubscribe = onSnapshot(gameRef, (snapshot) => {
-//       if (!snapshot.exists()) {
-//         return;
-//       }
-
-//       setGame(snapshot.data());
-//     });
-
-//     return () => unsubscribe();
-//   }, [roomId]);
-
-//   // Create my airplanes
-
-//   useEffect(() => {
-//     if (!game) return;
-
-//     const existing =
-//       player === "1" ? game.player1Airplanes : game.player2Airplanes;
-
-//     if (existing && existing.length > 0) {
-//       setMyAirplanes(existing);
-
-//       return;
-//     }
-
-//     const airplanes = generateAirplanes();
-
-//     setMyAirplanes(airplanes);
-//   }, [game, player]);
-
-//   // Ready
-
-//   async function readyGame() {
-//     if (myAirplanes.length !== 3) {
-//       return;
-//     }
-
-//     if (player === "1") {
-//       await updateDoc(gameRef, {
-//         player1Airplanes: myAirplanes,
-//       });
-//     } else {
-//       await updateDoc(gameRef, {
-//         player2Airplanes: myAirplanes,
-//       });
-//     }
-//   }
-
-//   // Shoot enemy
-
-//   async function handleEnemyCell(row, col, coordinate) {
-//     if (!game) return;
-
-//     // Check turn
-
-//     if (game.turn !== `player${player}`) {
-//       alert("Одоо чиний ээлж биш!");
-
-//       return;
-//     }
-
-//     // Already shot?
-
-//     const myShots =
-//       player === "1" ? game.player1Shots || {} : game.player2Shots || {};
-
-//     if (myShots[coordinate]) {
-//       alert("Энэ нүд рүү аль хэдийн буудсан!");
-
-//       return;
-//     }
-
-//     // Enemy airplanes
-
-//     const enemyAirplanes =
-//       player === "1"
-//         ? game.player2Airplanes || []
-//         : game.player1Airplanes || [];
-
-//     // Find airplane cell
-
-//     let hit = false;
-
-//     let hitAirplane = null;
-
-//     enemyAirplanes.forEach((airplane) => {
-//       airplane.cells.forEach((cell) => {
-//         if (cell.row === row && cell.col === col) {
-//           hit = true;
-
-//           hitAirplane = airplane;
-//         }
-//       });
-//     });
-
-//     let result = "miss";
-
-//     let destroyed = false;
-
-//     if (hit) {
-//       const hitCell = hitAirplane.cells.find(
-//         (cell) => cell.row === row && cell.col === col,
-//       );
-
-//       if (hitCell.type === "head") {
-//         result = "destroyed";
-//         destroyed = true;
-//       } else {
-//         result = "hit";
-//       }
-//     }
-
-//     console.log(coordinate, result);
-
-//     // New shots
-
-//     const newShots = {
-//       ...myShots,
-//       [coordinate]: result,
-//     };
-
-//     // Change turn
-
-//     const nextPlayer = player === "1" ? "player2" : "player1";
-
-//     const updateData =
-//       player === "1"
-//         ? {
-//             player1Shots: newShots,
-
-//             turn: nextPlayer,
-//           }
-//         : {
-//             player2Shots: newShots,
-
-//             turn: nextPlayer,
-//           };
-
-//     await updateDoc(gameRef, updateData);
-//   }
-
-//   if (!game) {
-//     return <div>Loading...</div>;
-//   }
-
-//   const myShots =
-//     player === "1" ? game.player1Shots || {} : game.player2Shots || {};
-
-//   const enemyShots =
-//     player === "1" ? game.player2Shots || {} : game.player1Shots || {};
-
-//   const myTurn = game.turn === `player${player}`;
-//   function isAirplaneDestroyed(airplane, shots) {
-//     const head = airplane.cells.find((cell) => cell.type === "head");
-
-//     if (!head) {
-//       return false;
-//     }
-
-//     const coordinate = `${String.fromCharCode(65 + head.col)}${head.row + 1}`;
-
-//     return shots[coordinate] === "hit";
-//   }
-
-//   return (
-//     <div className="game">
-//       <h1>✈️ Voice Airplane Battle</h1>
-
-//       <div className="room">
-//         Room:
-//         <strong>{roomId}</strong>
-//       </div>
-
-//       <div className="players">
-//         <div>
-//           Player 1:
-//           <strong>{game.player1}</strong>
-//         </div>
-
-//         <div>
-//           Player 2:
-//           <strong>{game.player2 || "Waiting..."}</strong>
-//         </div>
-//       </div>
-
-//       <h2>{myTurn ? "🟢 YOUR TURN" : "🔴 ENEMY TURN"}</h2>
-
-//       <div className="boards">
-//         {/* MY BOARD */}
-
-//         <div>
-//           <h2>My Board</h2>
-
-//           <Board
-//             airplanes={myAirplanes}
-//             showAirplanes={true}
-//             shots={enemyShots}
-//           />
-//         </div>
-
-//         {/* ENEMY BOARD */}
-
-//         <div>
-//           <h2>Enemy Board</h2>
-
-//           <Board
-//             airplanes={[]}
-//             showAirplanes={false}
-//             shots={myShots}
-//             onCellClick={handleEnemyCell}
-//           />
-//         </div>
-//       </div>
-
-//       <button className="ready-button" onClick={readyGame}>
-//         READY
-//       </button>
-//     </div>
-//   );
-// }
-
-// export default Game;
-import { useEffect, useState } from "react";
-
-import { doc, onSnapshot, updateDoc } from "firebase/firestore";
+import { doc, onSnapshot, updateDoc, runTransaction } from "firebase/firestore";
 
 import { db } from "../firebase/firebase";
 
 import Board from "../components/Board";
-
-import { generateAirplanes } from "../utils/airplane";
-
+import VoiceShootButton from "../components/VoiceShootButton";
+import { generateAirplanes, AIRCRAFT } from "../utils/airplane";
 function Game() {
   const [game, setGame] = useState(null);
 
@@ -277,6 +29,11 @@ function Game() {
   const roomId = pathParts[2];
 
   const gameRef = doc(db, "games", roomId);
+  const DEFAULT_FLEET = ["phantom", "wraith", "spectre"];
+
+  const [selectedTypes, setSelectedTypes] = useState(DEFAULT_FLEET);
+
+  const initializedRoom = useRef(null);
 
   // -------------------------
   // FIREBASE REALTIME
@@ -303,30 +60,45 @@ function Game() {
   // -------------------------
 
   useEffect(() => {
-    if (!game) return;
+    if (!game || !player || !roomId) return;
 
-    const existingAirplanes =
+    const initKey = `${roomId}-${player}`;
+
+    // Нэг өрөөний тухайн тоглогчийг дахин дахин initialize хийхгүй
+    if (initializedRoom.current === initKey) return;
+
+    const savedAirplanes =
       player === "1" ? game.player1Airplanes : game.player2Airplanes;
 
-    // Already saved in Firebase
+    const savedTypes =
+      player === "1" ? game.player1AircraftTypes : game.player2AircraftTypes;
 
-    if (existingAirplanes && existingAirplanes.length > 0) {
-      setMyAirplanes(existingAirplanes);
+    const validSavedTypes =
+      Array.isArray(savedTypes) &&
+      savedTypes.length === 3 &&
+      savedTypes.every((type) => AIRCRAFT[type]);
 
-      return;
+    const typesFromAirplanes =
+      Array.isArray(savedAirplanes) &&
+      savedAirplanes.length === 3 &&
+      savedAirplanes.every((plane) => AIRCRAFT[plane.aircraftType])
+        ? savedAirplanes.map((plane) => plane.aircraftType)
+        : null;
+
+    const types = validSavedTypes
+      ? savedTypes
+      : typesFromAirplanes || DEFAULT_FLEET;
+
+    setSelectedTypes(types);
+
+    if (savedAirplanes && savedAirplanes.length === 3) {
+      setMyAirplanes(savedAirplanes);
+    } else if (game.status !== "playing" && game.status !== "finished") {
+      setMyAirplanes(generateAirplanes(types));
     }
 
-    // If game already started,
-    // don't generate new airplanes
-
-    if (game.status === "playing" || game.status === "finished") {
-      return;
-    }
-
-    // Generate random airplanes
-
-    setMyAirplanes(generateAirplanes());
-  }, [game, player]);
+    initializedRoom.current = initKey;
+  }, [game, player, roomId]);
 
   // -------------------------
   // READY STATUS
@@ -338,23 +110,57 @@ function Game() {
   // RANDOMIZE
   // -------------------------
 
+  function selectAircraft(type) {
+    if (isReady || game?.status !== "waiting") return;
+
+    let nextTypes;
+
+    if (selectedTypes.includes(type)) {
+      nextTypes = selectedTypes.filter((item) => item !== type);
+    } else {
+      if (selectedTypes.length >= 3) {
+        alert("Хамгийн ихдээ 3 онгоц сонгоно.");
+        return;
+      }
+
+      nextTypes = [...selectedTypes, type];
+    }
+
+    setSelectedTypes(nextTypes);
+
+    if (nextTypes.length === 3) {
+      setMyAirplanes(generateAirplanes(nextTypes));
+    } else {
+      setMyAirplanes([]);
+    }
+  }
+
   async function randomizeAirplanes() {
-    if (isReady) {
+    if (isReady || game?.status !== "waiting") return;
+
+    if (selectedTypes.length !== 3) {
+      alert("Эхлээд 3 онгоц сонгоно уу.");
       return;
     }
 
-    const newAirplanes = generateAirplanes();
+    try {
+      const newAirplanes = generateAirplanes(selectedTypes);
 
-    setMyAirplanes(newAirplanes);
+      const airplanesField =
+        player === "1" ? "player1Airplanes" : "player2Airplanes";
 
-    if (player === "1") {
+      const typesField =
+        player === "1" ? "player1AircraftTypes" : "player2AircraftTypes";
+
+      setMyAirplanes(newAirplanes);
+
       await updateDoc(gameRef, {
-        player1Airplanes: newAirplanes,
+        [airplanesField]: newAirplanes,
+        [typesField]: selectedTypes,
       });
-    } else {
-      await updateDoc(gameRef, {
-        player2Airplanes: newAirplanes,
-      });
+    } catch (error) {
+      console.error("Randomize error:", error);
+      alert("Онгоц байрлуулахад алдаа гарлаа. Дахин оролдоно уу.");
     }
   }
 
@@ -363,64 +169,60 @@ function Game() {
   // -------------------------
 
   async function readyGame() {
-    if (myAirplanes.length !== 3) {
-      alert("3 онгоц байх ёстой.");
-
+    if (!game || isReady) {
       return;
     }
 
-    if (isReady) {
+    if (selectedTypes.length !== 3 || myAirplanes.length !== 3) {
+      alert("Яг 3 онгоц сонгоод байрлуулна уу.");
       return;
     }
 
     try {
-      if (player === "1") {
-        await updateDoc(gameRef, {
-          player1Ready: true,
+      await runTransaction(db, async (transaction) => {
+        const snapshot = await transaction.get(gameRef);
 
-          player1Airplanes: myAirplanes,
-        });
-      } else {
-        await updateDoc(gameRef, {
-          player2Ready: true,
+        if (!snapshot.exists()) {
+          throw new Error("Тоглоомын өрөө олдсонгүй.");
+        }
 
-          player2Airplanes: myAirplanes,
-        });
-      }
+        const latestGame = snapshot.data();
+
+        if (latestGame.status !== "waiting") {
+          return;
+        }
+        const typesField =
+          player === "1" ? "player1AircraftTypes" : "player2AircraftTypes";
+        const readyField = player === "1" ? "player1Ready" : "player2Ready";
+
+        const airplanesField =
+          player === "1" ? "player1Airplanes" : "player2Airplanes";
+
+        const otherPlayerReady =
+          player === "1" ? latestGame.player2Ready : latestGame.player1Ready;
+
+        const updates = {
+          [readyField]: true,
+          [airplanesField]: myAirplanes,
+          [typesField]: selectedTypes,
+        };
+
+        if (otherPlayerReady) {
+          updates.status = "playing";
+          updates.turn = "player1";
+        }
+
+        transaction.update(gameRef, updates);
+      });
     } catch (error) {
       console.error("Ready error:", error);
+      alert("READY дарахад алдаа гарлаа. Дахин оролдоно уу.");
     }
   }
 
   // -------------------------
   // START GAME
   // -------------------------
-
-  useEffect(() => {
-    if (!game) return;
-
-    const savedAirplanes =
-      player === "1" ? game.player1Airplanes : game.player2Airplanes;
-
-    if (savedAirplanes && savedAirplanes.length > 0) {
-      setMyAirplanes(savedAirplanes);
-      return;
-    }
-
-    const newAirplanes = generateAirplanes();
-
-    setMyAirplanes(newAirplanes);
-
-    if (player === "1") {
-      updateDoc(gameRef, {
-        player1Airplanes: newAirplanes,
-      });
-    } else {
-      updateDoc(gameRef, {
-        player2Airplanes: newAirplanes,
-      });
-    }
-  }, [game, player]);
 
   // -------------------------
   // CHECK AIRPLANE DESTROYED
@@ -651,7 +453,9 @@ function Game() {
   // -------------------------
   // UI
   // -------------------------
-
+  const playerNumber = Number(
+    new URLSearchParams(window.location.search).get("player"),
+  );
   return (
     <div className="game">
       {/* TITLE */}
@@ -693,11 +497,68 @@ function Game() {
               : "🔴 ENEMY TURN"}
       </h2>
 
+      {/* AIRCRAFT SELECTOR */}
+
+      {game.status === "waiting" && !isReady && (
+        <section className="fleet-selector">
+          <div className="fleet-heading">
+            <div>
+              <p className="fleet-eyebrow">AIRSPACE / LOADOUT SYSTEM</p>
+              <h2>SELECT YOUR FLEET</h2>
+              <p>Choose 3 aircraft for your mission.</p>
+            </div>
+
+            <div className="fleet-count">
+              {selectedTypes.length} <span>/ 3</span>
+            </div>
+          </div>
+
+          <div className="aircraft-grid">
+            {Object.entries(AIRCRAFT).map(([type, aircraft]) => {
+              const selected = selectedTypes.includes(type);
+
+              return (
+                <button
+                  type="button"
+                  key={type}
+                  className={`aircraft-card ${selected ? "selected" : ""}`}
+                  style={{ "--aircraft-color": aircraft.color }}
+                  onClick={() => selectAircraft(type)}
+                >
+                  <div className="aircraft-card-top">
+                    <span className="aircraft-status">
+                      {selected ? "SELECTED" : "AVAILABLE"}
+                    </span>
+                    <span className="aircraft-check">
+                      {selected ? "✓" : "+"}
+                    </span>
+                  </div>
+
+                  <div className="aircraft-preview">
+                    <span>✦</span>
+                    <span className="aircraft-plane-icon">✈</span>
+                    <span>✦</span>
+                  </div>
+
+                  <h3>{aircraft.name}</h3>
+                  <p>{aircraft.ability.replaceAll("_", " ")}</p>
+                </button>
+              );
+            })}
+          </div>
+
+          <p className="fleet-hint">
+            {selectedTypes.length === 3
+              ? "Fleet ready. Randomize your positions or confirm READY."
+              : `Select ${3 - selectedTypes.length} more aircraft.`}
+          </p>
+        </section>
+      )}
+
       {/* BOARDS */}
 
       <div className="boards">
         {/* MY BOARD */}
-
         <div>
           <h2>My Board</h2>
 
@@ -709,7 +570,6 @@ function Game() {
         </div>
 
         {/* ENEMY BOARD */}
-
         <div>
           <h2>Enemy Board</h2>
 
@@ -717,11 +577,33 @@ function Game() {
             airplanes={[]}
             showAirplanes={false}
             shots={myShots}
-            onCellClick={handleEnemyCell}
+            onCellClick={undefined}
           />
         </div>
       </div>
+      {/* BOARD LEGEND */}
+      {game?.player2Id && (
+        <div className="board-legend">
+          <p className="board-legend-title">ТЭМДЭГЛЭГЭЭ</p>
 
+          <div className="board-legend-items">
+            <div className="legend-item">
+              <span className="legend-symbol legend-destroyed">С</span>
+              <span>С — Сөнөсөн</span>
+            </div>
+
+            <div className="legend-item">
+              <span className="legend-symbol legend-hit">Ш</span>
+              <span>Ш — Шарх</span>
+            </div>
+
+            <div className="legend-item">
+              <span className="legend-symbol legend-miss">Х</span>
+              <span>Х — Хоосон</span>
+            </div>
+          </div>
+        </div>
+      )}
       {/* CONTROLS */}
 
       {game.status !== "finished" && !isReady && (
@@ -731,7 +613,13 @@ function Game() {
           <button onClick={readyGame}>READY</button>
         </div>
       )}
-
+      <VoiceShootButton
+        onShoot={handleEnemyCell}
+        disabled={
+          game?.status !== "playing" ||
+          game?.turn !== (player === "1" ? "player1" : "player2")
+        }
+      />
       {/* WIN / LOSE POPUP */}
 
       {game.status === "finished" && (

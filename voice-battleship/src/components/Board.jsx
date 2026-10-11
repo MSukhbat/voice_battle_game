@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Cell from "./Cell";
 
 function Board({
@@ -12,33 +13,29 @@ function Board({
     airplane.cells.forEach((cell) => {
       const key = `${cell.row}-${cell.col}`;
 
-      airplaneCells[key] = cell;
+      airplaneCells[key] = {
+        ...cell,
+        aircraftType: airplane.aircraftType || "phantom",
+      };
     });
   });
 
   return (
     <div className="board">
-      {/* Column letters */}
-
-      <div className="corner"></div>
+      <div className="corner" />
 
       {Array.from({ length: 10 }, (_, col) => (
-        <div className="coordinate" key={col}>
+        <div className="coordinate" key={`col-${col}`}>
           {String.fromCharCode(65 + col)}
         </div>
       ))}
 
-      {/* Rows */}
-
       {Array.from({ length: 10 }, (_, row) => (
-        <>
-          <div className="coordinate" key={`number-${row}`}>
-            {row + 1}
-          </div>
+        <Fragment key={`row-${row}`}>
+          <div className="coordinate">{row + 1}</div>
 
           {Array.from({ length: 10 }, (_, col) => {
             const key = `${row}-${col}`;
-
             const airplane = airplaneCells[key];
 
             const coordinate = `${String.fromCharCode(65 + col)}${row + 1}`;
@@ -49,12 +46,13 @@ function Board({
                 row={row}
                 col={col}
                 airplane={showAirplanes ? airplane : null}
+                aircraftType={showAirplanes ? airplane?.aircraftType : null}
                 shot={shots[coordinate]}
                 onClick={() => onCellClick && onCellClick(row, col, coordinate)}
               />
             );
           })}
-        </>
+        </Fragment>
       ))}
     </div>
   );

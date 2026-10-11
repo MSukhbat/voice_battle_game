@@ -99,3 +99,1720 @@ body {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+/* ===== AIRSPACE HOME PAGE ===== */
+
+.lobby {
+  --lobby-bg: #080d18;
+  --lobby-panel: #101827;
+  --lobby-border: #263246;
+  --lobby-text: #f1f5fb;
+  --lobby-muted: #8c9ab0;
+  --lobby-accent: #a8f36b;
+
+  min-height: 100vh;
+  padding: 0 7%;
+  overflow: hidden;
+  color: var(--lobby-text);
+  background:
+    radial-gradient(ellipse at 50% 0%, #17273a 0%, transparent 50%),
+    var(--lobby-bg);
+  font-family: Inter, Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.lobby *,
+.lobby *::before,
+.lobby *::after {
+  box-sizing: border-box;
+}
+
+.topbar {
+  height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.brand {
+  color: white;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.brand-icon {
+  color: var(--lobby-accent);
+  margin-right: 10px;
+}
+
+.brand-dot {
+  color: var(--lobby-accent);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #b1bdce;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.online-indicator {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #a8f36b;
+  box-shadow: 0 0 10px #a8f36b88;
+}
+
+.version-tag {
+  margin-left: 10px;
+  padding: 7px 9px;
+  color: var(--lobby-accent);
+  border: 1px solid #a8f36b40;
+  border-radius: 4px;
+}
+
+.hero {
+  padding: 75px 0 50px;
+  text-align: center;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--lobby-accent);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+.eyebrow-line {
+  width: 25px;
+  height: 1px;
+  background: var(--lobby-accent);
+}
+
+.hero h1 {
+  margin: 25px 0 15px;
+  font-size: clamp(44px, 7vw, 78px);
+  line-height: 0.99;
+  font-weight: 950;
+  letter-spacing: -3px;
+}
+
+.hero h1 span {
+  color: var(--lobby-accent);
+}
+
+.hero-description {
+  color: var(--lobby-muted);
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.player-setup {
+  width: min(440px, 100%);
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 32px auto 0;
+  padding: 15px 18px;
+  text-align: left;
+  background: #101827cc;
+  border: 1px solid var(--lobby-border);
+  border-radius: 10px;
+}
+
+.callsign-icon {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  color: var(--lobby-accent);
+  background: #a8f36b12;
+  border: 1px solid #a8f36b30;
+  border-radius: 8px;
+  font-size: 21px;
+}
+
+.callsign-field {
+  flex: 1;
+  min-width: 0;
+}
+
+.callsign-field label {
+  display: block;
+  margin-bottom: 7px;
+  color: #8492a8;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.callsign-field input {
+  width: 100%;
+  padding: 0;
+  color: white;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 13px;
+}
+
+.callsign-field input::placeholder {
+  color: #647187;
+}
+
+.setup-status {
+  color: #8190a6;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.games-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-bottom: 70px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: 23px;
+}
+
+.section-kicker {
+  color: var(--lobby-accent);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.section-heading h2 {
+  margin: 7px 0 0;
+  font-size: 24px;
+  letter-spacing: -0.7px;
+}
+
+.game-count {
+  padding: 8px 11px;
+  color: #9ba9bd;
+  border: 1px solid var(--lobby-border);
+  border-radius: 5px;
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+
+.game-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.game-card {
+  min-width: 0;
+  overflow: hidden;
+  background: linear-gradient(145deg, #121d2e, #0d1421);
+  border: 1px solid #29364b;
+  border-radius: 13px;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.battleship-card:hover {
+  transform: translateY(-5px);
+  border-color: #a8f36b80;
+  box-shadow: 0 18px 55px #00000035;
+}
+
+.tank-card {
+  border-color: #33404d;
+}
+
+.card-art {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+  isolation: isolate;
+  background: #13243a;
+}
+
+.battleship-art {
+  background:
+    radial-gradient(ellipse at 52% 50%, #28504d 0%, transparent 42%),
+    linear-gradient(135deg, #172b40, #0d1928);
+}
+
+.tank-art {
+  background:
+    radial-gradient(ellipse at 50% 55%, #4b4a32 0%, transparent 44%),
+    linear-gradient(135deg, #292e30, #111a22);
+}
+
+.art-grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.25;
+  background-image:
+    linear-gradient(#a8f36b25 1px, transparent 1px),
+    linear-gradient(90deg, #a8f36b25 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: linear-gradient(to bottom, black, transparent);
+}
+
+.art-number {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  color: #ffffff65;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.art-symbol {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  transform: translate(-50%, -50%);
+  user-select: none;
+}
+
+.airplane-symbol {
+  color: #d7f9bc;
+  font-size: 100px;
+  text-shadow: 0 0 35px #a8f36b45;
+}
+
+.tank-symbol {
+  width: 110px;
+  height: 110px;
+  color: #c8d1ad;
+  border: 2px solid #b2c18b80;
+  border-radius: 25px;
+  font-size: 88px;
+  text-shadow: 0 0 30px #b6c17a35;
+}
+
+.art-orbit,
+.tank-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 175px;
+  height: 175px;
+  border: 1px solid #a8f36b35;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.orbit-two {
+  width: 240px;
+  height: 240px;
+  border-style: dashed;
+  border-color: #a8f36b20;
+}
+
+.tank-ring {
+  border-color: #c4c69a30;
+}
+
+.tank-ring-two {
+  width: 240px;
+  height: 240px;
+  border-style: dashed;
+}
+
+.art-coordinate,
+.tank-coordinate {
+  position: absolute;
+  padding: 6px 8px;
+  color: #c8f8a4;
+  background: #101d28d9;
+  border: 1px solid #a8f36b50;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.coordinate-one {
+  top: 30%;
+  left: 24%;
+}
+
+.coordinate-two {
+  top: 58%;
+  right: 20%;
+}
+
+.coordinate-three {
+  bottom: 25%;
+  left: 35%;
+}
+
+.art-crosshair {
+  position: absolute;
+  top: 23%;
+  right: 31%;
+  color: var(--lobby-accent);
+  font-size: 25px;
+}
+
+.tank-coordinate {
+  color: #d4d2a0;
+  border-color: #c4c69a45;
+}
+
+.tank-coordinate-one {
+  top: 28%;
+  left: 22%;
+}
+
+.tank-coordinate-two {
+  right: 20%;
+  bottom: 28%;
+}
+
+.tank-crosshair {
+  position: absolute;
+  top: 26%;
+  right: 30%;
+  color: #d4d2a0;
+  font-size: 25px;
+}
+
+.art-status {
+  position: absolute;
+  right: 16px;
+  bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  color: #e5f9d7;
+  background: #0b1525d9;
+  border: 1px solid #a8f36b35;
+  border-radius: 5px;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+
+.tank-status {
+  color: #d0d1bd;
+  border-color: #b4b7a52e;
+}
+
+.coming-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #e4b86b;
+}
+
+.card-content {
+  padding: 25px;
+}
+
+.card-category {
+  display: flex;
+  gap: 9px;
+  color: #a8f36b;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+}
+
+.tank-category {
+  color: #c1c69b;
+}
+
+.category-divider {
+  color: #536075;
+}
+
+.card-content h3 {
+  margin: 14px 0 10px;
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.card-description {
+  min-height: 48px;
+  margin: 0;
+  color: #9ba9bd;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin: 22px 0;
+  padding: 14px 0;
+  color: #a8b4c6;
+  border-top: 1px solid #ffffff10;
+  border-bottom: 1px solid #ffffff10;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+}
+
+.primary-action,
+.disabled-action {
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 17px;
+  border: 1px solid var(--lobby-accent);
+  border-radius: 6px;
+  color: #10190d;
+  background: var(--lobby-accent);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.1px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.primary-action:hover {
+  background: #c1ff91;
+}
+
+.primary-action:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.action-arrow {
+  font-size: 18px;
+}
+
+.join-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 21px 0 13px;
+  color: #7f8ba0;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.join-divider span:first-child,
+.join-divider span:last-child {
+  height: 1px;
+  flex: 1;
+  background: #ffffff15;
+}
+
+.join-form {
+  display: flex;
+  gap: 8px;
+}
+
+.join-form input {
+  width: 0;
+  min-width: 0;
+  flex: 1;
+  padding: 0 12px;
+  color: white;
+  background: #080e18;
+  border: 1px solid #2b3749;
+  border-radius: 5px;
+  outline: none;
+  font-size: 11px;
+}
+
+.join-form input:focus {
+  border-color: #a8f36b80;
+}
+
+.join-form input::placeholder {
+  color: #68768c;
+}
+
+.join-action {
+  padding: 0 16px;
+  color: #d5e6ca;
+  background: #a8f36b12;
+  border: 1px solid #a8f36b50;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.join-action:hover {
+  background: #a8f36b25;
+}
+
+.join-action:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.disabled-action {
+  color: #879183;
+  background: #a5aa9c0c;
+  border-color: #a5aa9c35;
+  cursor: not-allowed;
+}
+
+.tank-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 19px;
+  color: #7d8999;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+}
+
+.coming-soon-mark {
+  padding: 6px 8px;
+  color: #d5d1a3;
+  background: #c4c69a12;
+  border: 1px solid #c4c69a30;
+  border-radius: 4px;
+}
+
+.lobby-footer {
+  max-width: 1100px;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin: 0 auto;
+  border-top: 1px solid #ffffff15;
+  color: #a9b6c8;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.footer-muted {
+  margin-left: 8px;
+  color: #647187;
+  font-weight: 500;
+}
+
+@media (max-width: 800px) {
+  .lobby {
+    padding: 0 5%;
+  }
+
+  .hero {
+    padding-top: 55px;
+  }
+
+  .game-cards {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .card-art {
+    height: 200px;
+  }
+
+  .games-section {
+    padding-bottom: 45px;
+  }
+}
+
+@media (max-width: 480px) {
+  .topbar {
+    height: 68px;
+  }
+
+  .brand {
+    font-size: 17px;
+  }
+
+  .nav-right {
+    gap: 6px;
+    font-size: 8px;
+    letter-spacing: 0.5px;
+  }
+
+  .version-tag {
+    margin-left: 0;
+    padding: 6px;
+  }
+
+  .hero h1 {
+    letter-spacing: -2px;
+  }
+
+  .hero-description {
+    font-size: 12px;
+  }
+
+  .setup-status {
+    display: none;
+  }
+
+  .section-heading h2 {
+    font-size: 20px;
+  }
+
+  .game-count {
+    font-size: 8px;
+  }
+
+  .card-content {
+    padding: 20px;
+  }
+
+  .card-content h3 {
+    font-size: 26px;
+  }
+
+  .lobby-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    padding: 18px 0;
+    line-height: 1.8;
+  }
+}
+
+/* ===== AIRSPACE GAME UI UPGRADE ===== */
+
+.game {
+  --bg: #080d18;
+  --panel: #101827;
+  --border: #263246;
+  --text: #f1f5fb;
+  --muted: #8c9ab0;
+  --accent: #a8f36b;
+
+  min-height: 100vh;
+  padding: 32px 5%;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 50% 0%, #192b3f 0%, transparent 48%), var(--bg);
+  font-family: Inter, Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.game *,
+.game *::before,
+.game *::after {
+  box-sizing: border-box;
+}
+
+.game > h1 {
+  margin: 12px 0 18px;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 900;
+  letter-spacing: -1.5px;
+}
+
+.room {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  color: var(--muted);
+  background: #101827;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.room strong {
+  color: var(--accent);
+  overflow-wrap: anywhere;
+}
+
+.players {
+  max-width: 650px;
+  margin: 28px auto;
+  gap: 16px;
+}
+
+.players > div {
+  flex: 1;
+  min-width: 0;
+  padding: 18px;
+  color: var(--muted);
+  background: linear-gradient(145deg, #121d2e, #0d1421);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 2;
+}
+
+.players strong {
+  display: block;
+  color: var(--text);
+  font-size: 17px;
+  overflow-wrap: anywhere;
+}
+
+.game > h2 {
+  width: fit-content;
+  max-width: 100%;
+  margin: 24px auto;
+  padding: 12px 20px;
+  color: var(--accent);
+  background: #a8f36b0c;
+  border: 1px solid #a8f36b35;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.boards {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 28px;
+  margin: 30px auto;
+}
+
+.boards > div {
+  min-width: 0;
+  padding: 20px;
+  background: linear-gradient(145deg, #111c2c, #0c1420);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 15px 40px #00000020;
+}
+
+.boards > div > h2 {
+  margin: 0 0 18px;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.boards > div:first-child > h2::before {
+  content: "●";
+  margin-right: 9px;
+  color: var(--accent);
+  font-size: 11px;
+}
+
+.boards > div:last-child > h2::before {
+  content: "◎";
+  margin-right: 9px;
+  color: #77baff;
+  font-size: 16px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: 25px repeat(10, 32px);
+  grid-template-rows: 25px repeat(10, 32px);
+  gap: 2px;
+  width: max-content;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.coordinate {
+  color: #8999b0;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  color: #d9e5f5;
+  background: #18273a;
+  border: 1px solid #2b3c52;
+  border-radius: 3px;
+  font-size: 13px;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.cell:hover {
+  background: #263b50;
+  border-color: var(--accent);
+}
+
+.cell.airplane {
+  color: var(--accent);
+  background: #a8f36b22;
+  border-color: #a8f36b75;
+}
+
+.cell.hit {
+  color: white;
+  background: #a04444;
+  border-color: #ff7777;
+}
+
+.cell.miss {
+  color: #91caff;
+  background: #172c42;
+  border-color: #315777;
+}
+
+.cell.destroyed {
+  color: white;
+  background: #e43d4f;
+  border-color: #ff7180;
+  box-shadow: 0 0 10px #e43d4f40;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 30px auto;
+}
+
+.controls button {
+  min-width: 145px;
+  padding: 14px 24px;
+  color: #dce8f7;
+  background: #131f30;
+  border: 1px solid #3a4a60;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.controls button:hover:not(:disabled) {
+  color: var(--accent);
+  background: #a8f36b12;
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.controls button:last-child {
+  color: #10190d;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.controls button:last-child:hover:not(:disabled) {
+  color: #10190d;
+  background: #c1ff91;
+}
+
+.controls button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.winner-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: #030711d9;
+  backdrop-filter: blur(10px);
+}
+
+.winner-popup {
+  width: min(420px, 100%);
+  padding: 40px 28px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at 50% 0%, #243a45, transparent 65%), #101827;
+  border: 1px solid #a8f36b60;
+  border-radius: 16px;
+  box-shadow: 0 25px 100px #0008;
+}
+
+.winner-icon {
+  margin-bottom: 12px;
+  font-size: 58px;
+}
+
+.winner-popup h1 {
+  margin: 10px 0;
+  color: var(--accent);
+  font-size: 36px;
+  font-weight: 950;
+  letter-spacing: -1px;
+}
+
+.winner-popup p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+@media (max-width: 900px) {
+  .game {
+    padding: 24px 3%;
+  }
+
+  .boards {
+    gap: 18px;
+  }
+
+  .boards > div {
+    padding: 14px;
+  }
+
+  .board {
+    grid-template-columns: 21px repeat(10, 27px);
+    grid-template-rows: 21px repeat(10, 27px);
+    gap: 1px;
+  }
+
+  .cell {
+    width: 27px;
+    height: 27px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 600px) {
+  .players {
+    flex-direction: column;
+    margin: 20px auto;
+  }
+
+  .players > div {
+    padding: 12px 16px;
+  }
+
+  .boards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .boards > div {
+    width: 100%;
+    max-width: 370px;
+    overflow-x: auto;
+  }
+
+  .board {
+    grid-template-columns: 22px repeat(10, minmax(0, 1fr));
+    grid-template-rows: 22px repeat(10, minmax(0, 1fr));
+    width: 100%;
+    gap: 2px;
+  }
+
+  .cell {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    font-size: 11px;
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 340px;
+  }
+
+  .controls button {
+    width: 100%;
+  }
+}
+
+/* ===== AIRSPACE AIRCRAFT VISUALS ===== */
+
+.board .cell.airplane {
+  position: relative;
+  overflow: hidden;
+  color: var(--aircraft-color, #45d7ff);
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--aircraft-color, #45d7ff) 22%, #0b1421),
+    #101827
+  );
+  border: 1px solid
+    color-mix(in srgb, var(--aircraft-color, #45d7ff) 75%, transparent);
+  box-shadow:
+    inset 0 0 8px
+      color-mix(in srgb, var(--aircraft-color, #45d7ff) 12%, transparent),
+    0 0 5px color-mix(in srgb, var(--aircraft-color, #45d7ff) 18%, transparent);
+  font-size: 15px;
+  font-weight: 900;
+  transition:
+    background 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.board .cell.airplane:hover {
+  z-index: 1;
+  transform: scale(1.06);
+  box-shadow: 0 0 12px
+    color-mix(in srgb, var(--aircraft-color, #45d7ff) 45%, transparent);
+}
+
+.board .cell.airplane-head {
+  border-radius: 8px 8px 3px 3px;
+  text-shadow: 0 0 8px currentColor;
+}
+
+.board .cell.airplane-wing {
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+.board .cell.airplane-tail {
+  border-radius: 3px 3px 7px 7px;
+  font-size: 10px;
+}
+
+/* Shot states should remain visually distinct */
+
+.board .cell.hit {
+  color: #ffffff;
+  background: #71351e;
+  border-color: #ff9b55;
+  box-shadow: 0 0 9px #ff713b55;
+}
+
+.board .cell.miss {
+  color: #8293a9;
+  background: #101827;
+  border-color: #344258;
+}
+
+.board .cell.destroyed {
+  color: #ffffff;
+  background: #781f37;
+  border-color: #ff476d;
+  box-shadow: 0 0 12px #ff476d77;
+}
+
+/* ===== AIRSPACE FLEET SELECTOR ===== */
+
+.fleet-selector {
+  max-width: 1050px;
+  margin: 30px auto;
+  padding: 26px;
+  background: linear-gradient(145deg, #101b2c, #080e19);
+  border: 1px solid #2b3c51;
+  border-radius: 18px;
+  color: #f1f5fb;
+  box-shadow: 0 18px 55px #0003;
+}
+
+.fleet-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.fleet-heading h2 {
+  margin: 5px 0;
+  color: #f1f5fb;
+  letter-spacing: 2px;
+}
+
+.fleet-heading p {
+  color: #899ab0;
+  margin-bottom: 0;
+}
+
+.fleet-eyebrow {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #a8f36b !important;
+}
+
+.fleet-count {
+  color: #a8f36b;
+  font-size: 28px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.fleet-count span {
+  color: #8290a5;
+  font-size: 15px;
+}
+
+.aircraft-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.aircraft-card {
+  min-width: 0;
+  padding: 15px;
+  text-align: left;
+  color: #eef4ff;
+  background: #0b1422;
+  border: 1px solid #29384b;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 180ms ease;
+}
+
+.aircraft-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--aircraft-color);
+}
+
+.aircraft-card.selected {
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--aircraft-color) 13%, #101b2b),
+    #0b1422
+  );
+  border-color: var(--aircraft-color);
+  box-shadow: 0 0 18px
+    color-mix(in srgb, var(--aircraft-color) 15%, transparent);
+}
+
+.aircraft-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.aircraft-status {
+  color: var(--aircraft-color);
+  font-size: 9px;
+  letter-spacing: 1px;
+  font-weight: 800;
+}
+
+.aircraft-check {
+  color: var(--aircraft-color);
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.aircraft-preview {
+  min-height: 82px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin: 10px 0;
+  color: var(--aircraft-color);
+  background: radial-gradient(ellipse, #1a2a3d, #0b1422 70%);
+  border-radius: 8px;
+}
+
+.aircraft-plane-icon {
+  font-size: 38px;
+  filter: drop-shadow(0 0 9px var(--aircraft-color));
+}
+
+.aircraft-preview > span:first-child,
+.aircraft-preview > span:last-child {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.aircraft-card h3 {
+  color: var(--aircraft-color);
+  font-size: 15px;
+  letter-spacing: 1.5px;
+  margin: 10px 0 5px;
+}
+
+.aircraft-card > p {
+  color: #93a3b8;
+  font-size: 11px;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+  margin: 0;
+}
+
+.fleet-hint {
+  color: #a8f36b;
+  font-size: 13px;
+  margin: 20px 0 0;
+}
+
+@media (max-width: 650px) {
+  .fleet-selector {
+    padding: 16px;
+  }
+
+  .aircraft-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .aircraft-card {
+    padding: 10px;
+  }
+
+  .aircraft-preview {
+    min-height: 65px;
+  }
+
+  .aircraft-plane-icon {
+    font-size: 30px;
+  }
+}
+/* =================================
+   AIRSPACE - MOBILE RESPONSIVE
+================================= */
+
+/* Prevent horizontal overflow */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+/* Main game page */
+.game {
+  width: 100%;
+  max-width: 100%;
+  padding: 24px;
+  margin: 0 auto;
+}
+
+/* Room information */
+.room {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.players {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+/* Two boards */
+.boards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 24px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 28px auto;
+}
+
+.board {
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(11, minmax(0, 1fr));
+  gap: 2px;
+}
+
+.coordinate {
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: clamp(8px, 1vw, 12px);
+}
+
+.cell {
+  min-width: 0;
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: clamp(9px, 1.2vw, 15px);
+  border-radius: 3px;
+}
+
+/* Aircraft guide */
+.aircraft-guide {
+  width: min(1100px, calc(100% - 32px));
+  margin: 48px auto;
+}
+
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.guide-card {
+  min-width: 0;
+}
+
+.guide-shape {
+  width: 100%;
+  min-width: 0;
+}
+
+.aircraft-shape {
+  max-width: 100%;
+}
+
+/* Aircraft selector */
+.fleet-selector {
+  width: min(1050px, calc(100% - 32px));
+  margin: 24px auto;
+}
+
+.aircraft-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.aircraft-card {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .game {
+    padding: 18px;
+  }
+
+  .boards {
+    gap: 14px;
+  }
+
+  .guide-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .aircraft-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .game {
+    padding: 12px;
+  }
+
+  .players {
+    gap: 8px;
+  }
+
+  .boards {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    margin: 20px auto;
+  }
+
+  .board {
+    width: 100%;
+    gap: 2px;
+  }
+
+  .coordinate {
+    font-size: 10px;
+  }
+
+  .cell {
+    font-size: 12px;
+    border-radius: 2px;
+  }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .controls button {
+    max-width: 100%;
+    min-height: 42px;
+  }
+
+  .fleet-selector {
+    width: calc(100% - 20px);
+    padding: 14px;
+    margin: 20px auto;
+  }
+
+  .fleet-heading {
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .fleet-heading h2 {
+    font-size: 20px;
+    letter-spacing: 1px;
+  }
+
+  .aircraft-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .aircraft-card {
+    padding: 10px;
+  }
+
+  .aircraft-preview {
+    min-height: 65px;
+  }
+
+  .aircraft-guide {
+    width: calc(100% - 24px);
+    margin: 36px auto;
+  }
+
+  .guide-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .guide-card {
+    padding: 12px;
+  }
+
+  .guide-heading h2 {
+    letter-spacing: 1px;
+  }
+
+  .guide-shape {
+    height: 110px;
+  }
+
+  .guide-legend {
+    gap: 8px;
+  }
+
+  .winner-popup {
+    width: calc(100% - 32px);
+    max-width: 400px;
+    padding: 20px;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 360px) {
+  .game {
+    padding: 8px;
+  }
+
+  .coordinate {
+    font-size: 8px;
+  }
+
+  .board {
+    gap: 1px;
+  }
+
+  .fleet-heading h2 {
+    font-size: 17px;
+  }
+
+  .aircraft-card {
+    padding: 8px;
+  }
+
+  .guide-card {
+    padding: 9px;
+  }
+
+  .guide-legend span {
+    font-size: 9px;
+  }
+}
+
+/* Multiplayer board legend */
+
+.board-legend {
+  width: min(700px, calc(100% - 24px));
+  margin: 24px auto 36px;
+  padding: 18px 20px;
+  color: #f1f5fb;
+  background: linear-gradient(145deg, #101b2c, #080e19);
+  border: 1px solid #29384b;
+  border-radius: 14px;
+}
+
+.board-legend-title {
+  margin: 0 0 14px;
+  color: #a8f36b;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.board-legend-items {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px 26px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #cbd5e1;
+  font-size: 13px;
+}
+
+.legend-symbol {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.legend-destroyed {
+  color: #ffffff;
+  background: #b42335;
+  border: 1px solid #ff596b;
+}
+
+.legend-hit {
+  color: #ffffff;
+  background: #d97732;
+  border: 1px solid #ffb454;
+}
+
+.legend-miss {
+  color: #a8b5c7;
+  background: #1b293b;
+  border: 1px solid #40516a;
+}
+
+@media (max-width: 600px) {
+  .board-legend {
+    padding: 15px;
+  }
+
+  .board-legend-items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .legend-item {
+    font-size: 12px;
+  }
+}
+
+.voice-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.voice-button {
+  min-width: 180px;
+  padding: 14px 24px;
+  color: #08110a;
+  background: #a8f36b;
+  border: 1px solid #c6ff9c;
+  border-radius: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.voice-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px #a8f36b35;
+}
+
+.voice-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.voice-button.is-listening {
+  color: white;
+  background: #b42335;
+  border-color: #ff596b;
+  animation: voice-pulse 1.2s infinite;
+}
+
+.voice-message,
+.voice-coordinate {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 13px;
+}
+
+.voice-coordinate strong {
+  color: #a8f36b;
+  font-size: 18px;
+}
+
+@keyframes voice-pulse {
+  50% {
+    box-shadow: 0 0 0 7px #ff596b20;
+  }
+}
