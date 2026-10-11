@@ -9,7 +9,7 @@ import VoiceShootButton from "../components/VoiceShootButton";
 import { generateAirplanes, AIRCRAFT } from "../utils/airplane";
 function Game() {
   const [game, setGame] = useState(null);
-
+  const [selectedCells, setSelectedCells] = useState({});
   const [myAirplanes, setMyAirplanes] = useState([]);
 
   // -------------------------
@@ -252,11 +252,51 @@ function Game() {
 
     return airplanes.every((airplane) => isAirplaneDestroyed(airplane, shots));
   }
+  function handleEnemyCellSelect(row, col, coordinate) {
+    if (game?.status !== "playing") return;
+    if (game.turn !== `player${player}`) return;
 
+    const shots =
+      player === "1" ? game.player1Shots || {} : game.player2Shots || {};
+
+    if (shots[coordinate]) return;
+
+    setSelectedCells((current) => {
+      const next = { ...current };
+
+      if (next[coordinate]) {
+        delete next[coordinate];
+      } else {
+        next[coordinate] = { row, col, coordinate };
+      }
+
+      return next;
+    });
+  }
   // -------------------------
   // SHOOT ENEMY
   // -------------------------
+  function handleEnemyCellSelect(row, col, coordinate) {
+    if (game?.status !== "playing") return;
+    if (game.turn !== `player${player}`) return;
 
+    const shots =
+      player === "1" ? game.player1Shots || {} : game.player2Shots || {};
+
+    if (shots[coordinate]) return;
+
+    setSelectedCells((current) => {
+      const next = { ...current };
+
+      if (next[coordinate]) {
+        delete next[coordinate];
+      } else {
+        next[coordinate] = true;
+      }
+
+      return next;
+    });
+  }
   async function handleEnemyCell(row, col, coordinate) {
     if (!game) {
       return;
@@ -577,7 +617,8 @@ function Game() {
             airplanes={[]}
             showAirplanes={false}
             shots={myShots}
-            onCellClick={undefined}
+            onCellClick={handleEnemyCellSelect}
+            selectedCoordinates={Object.keys(selectedCells)}
           />
         </div>
       </div>

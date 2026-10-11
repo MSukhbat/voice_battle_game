@@ -6,6 +6,7 @@ function Board({
   shots = {},
   showAirplanes = false,
   onCellClick,
+  selectedCoordinates = [],
 }) {
   const airplaneCells = {};
 
@@ -48,6 +49,9 @@ function Board({
                 airplane={showAirplanes ? airplane : null}
                 aircraftType={showAirplanes ? airplane?.aircraftType : null}
                 shot={shots[coordinate]}
+                selected={
+                  selectedCoordinates.includes(coordinate) && !shots[coordinate]
+                }
                 onClick={() => onCellClick && onCellClick(row, col, coordinate)}
               />
             );

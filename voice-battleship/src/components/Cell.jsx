@@ -6,9 +6,19 @@ const aircraftColors = {
   volt: "#60A5FA",
   nova: "#FF6B9D",
 };
-
-function Cell({ row, col, airplane, aircraftType, shot, onClick }) {
+function Cell({
+  row,
+  col,
+  airplane,
+  aircraftType,
+  shot,
+  onClick,
+  selected = false,
+}) {
   let className = "cell";
+  if (selected && !shot) {
+    className += " selected";
+  }
   let symbol = "";
 
   if (airplane) {
