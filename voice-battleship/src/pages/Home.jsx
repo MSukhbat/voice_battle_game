@@ -253,7 +253,7 @@ function Home() {
       <nav className="topbar">
         <a href="/" className="brand">
           <span className="brand-icon">✦</span>
-          AIRSPACE<span className="brand-dot">.</span>
+          AIRSPACE<span className="brand-dot">.</span>Team6
         </a>
 
         <div className="nav-right">
@@ -270,44 +270,44 @@ function Home() {
         </div>
 
         <h1>
-          CHOOSE YOUR
+          ТОГЛООМЫН ТӨРЛӨӨ
           <br />
-          <span>BATTLE.</span>
+          <span> СОНГО.</span>
         </h1>
 
         <p className="hero-description">
-          Think ahead. Make your move. Outplay your opponent.
+          Урьдчилан тооцоол. Нүүдлээ хий. Өрсөлдөгчөө илүүрх.
           <br />
-          Choose your game and enter the battlefield.
+          Тоглоомоо сонгоод тулаанд нэгд.
         </p>
 
         <div className="player-setup">
           <div className="callsign-icon">⌘</div>
 
           <div className="callsign-field">
-            <label htmlFor="player-name">YOUR CALLSIGN</label>
+            <label htmlFor="player-name">ТОГЛОГЧИЙН НЭР</label>
             <input
               id="player-name"
               type="text"
-              placeholder="Enter your player name..."
+              placeholder="Нэрээ бичнэ үү."
               value={name}
               maxLength={24}
               onChange={(e) => setName(e.target.value)}
             />
           </div>
 
-          <span className="setup-status">PLAYER SETUP</span>
+          <span className="setup-status">ТОГЛОГЧИЙН ТОХИРГОО</span>
         </div>
       </section>
 
       <section className="games-section">
         <div className="section-heading">
           <div>
-            <span className="section-kicker">SELECT YOUR MODE</span>
-            <h2>Available missions</h2>
+            <span className="section-kicker">ТОГЛООМЫН ГОРИМ</span>
+            <h2>Боломжтой төрлүүд </h2>
           </div>
 
-          <span className="game-count">02 GAME MODES</span>
+          <span className="game-count">2 Тоглоомын төрөлтэй</span>
         </div>
 
         <div className="game-cards">
@@ -335,16 +335,16 @@ function Home() {
                 <span>TURN-BASED</span>
               </div>
 
-              <h3>BATTLESHIP</h3>
+              <h3>Онгоц Буудах Тоглоом</h3>
 
               <p className="card-description">
-                Locate enemy aircraft, plan your attacks, and destroy every
-                enemy headquarters to win.
+                Дайсны онгоцны байршлыг тогтоож, довтолгоогоо төлөвлөн,
+                өрсөлдөгчийнхөө бүх онгоцыг устгах.
               </p>
 
               <div className="card-meta">
-                <span>♟ 2 PLAYERS</span>
-                <span>◷ TURN-BASED</span>
+                <span>♟ 2 тоглогч</span>
+                <span>◷ ЭЭЛЖЭЭР ТОГЛОХ</span>
               </div>
 
               <button
@@ -405,20 +405,20 @@ function Home() {
                 <span>TACTICAL ACTION</span>
               </div>
 
-              <h3>TANK BATTLE</h3>
+              <h3>MINI ТАНКИЙН ТУЛААН</h3>
 
               <p className="card-description">
-                Command your tank, outmaneuver your opponent, and dominate the
-                battlefield. Mission coming soon.
+                Танкаа удирдаж, дайснаасаа овжин хөдөлж, тулалдааны талбарт
+                давамгайл. Энэ горим одоогоор хөгжүүлэлтийн шатанд байна.
               </p>
 
               <div className="card-meta">
-                <span>♟ 2 PLAYERS</span>
-                <span>◈ TACTICAL COMBAT</span>
+                <span>♟ 2 тоглогч</span>
+                <span>◈ ТАКТИКИЙН ТУЛААН</span>
               </div>
 
               <button className="disabled-action" disabled>
-                <span>MISSION LOCKED</span>
+                <span>ТҮР ХУГАЦААНД НЭЭГДЭЭГҮЙ</span>
                 <span>🔒</span>
               </button>
 

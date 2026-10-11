@@ -53,8 +53,30 @@ function parseCoordinate(transcript) {
 
   const words = text.split(" ");
 
-  // A5, a 5, A-5 зэрэг
-  const joined = text.replace(/\s/g, "").toUpperCase();
+  // Кирилл үсгийг латин үсэг болгон хөрвүүлэх
+  const cyrillicLetters = {
+    а: "A",
+    б: "B",
+    с: "C",
+    д: "D",
+    е: "E",
+    эф: "F",
+    ж: "G",
+    эйч: "H",
+    и: "I",
+    жэй: "J",
+  };
+
+  // A5, A 5, А 5, А 5. зэрэг
+  const joined = text
+    .replace(/\s/g, "")
+    .replace(/а/g, "A")
+    .replace(/б/g, "B")
+    .replace(/с/g, "C")
+    .replace(/д/g, "D")
+    .replace(/е/g, "E")
+    .toUpperCase();
+
   const directMatch = joined.match(/([A-J])(10|[1-9])/);
 
   if (directMatch) {
@@ -63,13 +85,15 @@ function parseCoordinate(transcript) {
 
   // "а тав", "эй тав", "а таван" зэрэг
   for (let i = 0; i < words.length; i++) {
-    let letter = letterWords[words[i]];
+    let letter = letterWords[words[i]] || cyrillicLetters[words[i]];
     let number = numberWords[words[i + 1]];
 
+    // Үсгийг шууд хэлсэн бол
     if (!letter && /^[a-j]$/i.test(words[i])) {
       letter = words[i].toUpperCase();
     }
 
+    // Тоог цифрээр хэлсэн бол
     if (!number && /^\d{1,2}$/.test(words[i + 1] || "")) {
       number = Number(words[i + 1]);
     }
@@ -137,10 +161,20 @@ export default function VoiceShootButton({ onShoot, disabled = false }) {
     };
 
     recognition.onerror = (event) => {
+      console.error("Speech recognition error:", event.error);
+
+      const errorMessages = {
+        "not-allowed": "Микрофоны зөвшөөрөл өгөөгүй байна.",
+        "service-not-allowed": "Safari дуу таних үйлчилгээг ашиглаж чадсангүй.",
+        network: "Сүлжээний алдаа гарлаа.",
+        "no-speech": "Яриа илэрсэнгүй.",
+        "audio-capture": "Микрофон ашиглах боломжгүй байна.",
+        "language-not-supported": "Сонгосон хэл дэмжигдэхгүй байна.",
+        aborted: "Дуу танилт зогссон байна.",
+      };
+
       setMessage(
-        event.error === "not-allowed"
-          ? "Микрофоны зөвшөөрөл өгнө үү."
-          : "Дуу танихад алдаа гарлаа. Дахин оролдоорой.",
+        errorMessages[event.error] || `Дуу таних алдаа: ${event.error}`,
       );
     };
 
@@ -164,7 +198,7 @@ export default function VoiceShootButton({ onShoot, disabled = false }) {
         onClick={startListening}
         disabled={disabled || listening}
       >
-        {listening ? "🎙️ Сонсож байна..." : "🎙️ SPEECH"}
+        {listening ? "🎙️ Сонсож байна..." : "🎙️ ДУУ ХООЛОЙГООР УДИРДАХ"}
       </button>
 
       {message && (
